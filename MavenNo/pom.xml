@@ -11,7 +11,7 @@
 	<groupId>com.title</groupId>
 	<artifactId>MavenNo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>MavenNo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
