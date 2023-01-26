@@ -7,8 +7,8 @@ function LandingPage() {
 
     useEffect(() => {
         console.log("렌더링 될때마다 실행");
-        axios.get('/api/landingpage')
-            .then(res=> setGreeting(res))
+        axios.get('/api/landingPage')
+            .then(res=> setGreeting(res.data))
             .catch(error => console.log(error))
 
     }, [])
