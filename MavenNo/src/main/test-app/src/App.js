@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // import {
 //     BrowserRouter as Router,
@@ -24,13 +24,41 @@ export default function App() {
     const mystyle = {
         color: 'red',
     };
+    console.log('App 실행');
+
+    let sample = [
+        { id: 1, name: '토마토' },
+        { id: 2, name: '감자' },
+        { id: 3, name: '오이' },
+    ];
+
+    const [users, setUsers] = useState(sample); //레퍼런스가 변경되어야 감지(레퍼런스가 동일하면 값이 변경되어도 동작X)
+    // let number = 4;
+    const [number, setNumber] = useState(users.length + 1);
+
+    const download = () => {
+        console.log('sample', sample);
+        console.log('users', users);
+
+        setUsers([...users, { id: number, name: '상추' }]);
+        // number += 1;
+        setNumber(number + 1);
+    };
 
     return (
-        <div>
+        <>
             <div style={mystyle}>
                 안녕{a === 10 ? '10입니다.' : '10이 아닙니다.'}
             </div>
             <h1>헤더{b === 10 && '20입니다.'}</h1>
-        </div>
+            <button onClick={download}>다운로드</button>
+            {users.map((user) => {
+                return (
+                    <h1>
+                        {user.id}, {user.name}
+                    </h1>
+                );
+            })}
+        </>
     );
 }
