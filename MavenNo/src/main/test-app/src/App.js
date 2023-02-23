@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // import {
 //     BrowserRouter as Router,
@@ -19,46 +19,47 @@ import React, { useState } from 'react';
 //    - 라이브러리 사용(bootstrap, component-styled)
 
 export default function App() {
-    let a = 10;
-    const b = 20;
-    const mystyle = {
-        color: 'red',
+    let keyword = {
+        id: 1,
+        name: 'ee',
     };
-    console.log('App 실행');
 
-    let sample = [
-        { id: 1, name: '토마토' },
-        { id: 2, name: '감자' },
-        { id: 3, name: '오이' },
-    ];
+    const [data, setData] = useState(0);
+    const [search, setSearch] = useState(keyword);
 
-    const [users, setUsers] = useState(sample); //레퍼런스가 변경되어야 감지(레퍼런스가 동일하면 값이 변경되어도 동작X)
-    // let number = 4;
-    const [number, setNumber] = useState(users.length + 1);
+    console.log('search', search);
+    console.log('keyword', keyword);
+
+    // useEffect 실행시점:
+    // 1. App() 함수가 최초 실행될 때 (마운트될 때)
+    // 2. 두번째 인자인 dependencyList에 등록된 상태변수가 변경될 때
+    // (** useState와 다르게 레퍼런스 말고 데이터만 변경되어도 실행되는 듯 하다, 좀 더 찾아봐야할 듯)
+    useEffect(() => {
+        console.log('useEffect 실행됨');
+        download();
+    }, []);
 
     const download = () => {
-        console.log('sample', sample);
-        console.log('users', users);
+        // const downloadData = 5;
 
-        setUsers([...users, { id: number, name: '상추' }]);
-        // number += 1;
-        setNumber(number + 1);
+        // setData(downloadData);
+
+        keyword.name = '키워드'; // 데이터는 변경되었지만 레퍼런스가 동일해 useState감지x
+        // keyword = { id: 1, name: '키워드' }; // 새로운 객체가 할당되면서 레퍼런스가 변경되어 useState 감지o
+        setSearch(keyword);
     };
 
     return (
         <>
-            <div style={mystyle}>
-                안녕{a === 10 ? '10입니다.' : '10이 아닙니다.'}
-            </div>
-            <h1>헤더{b === 10 && '20입니다.'}</h1>
-            <button onClick={download}>다운로드</button>
-            {users.map((user) => {
-                return (
-                    <h1>
-                        {user.id}, {user.name}
-                    </h1>
-                );
-            })}
+            <button onClick={download}>검색 : {search.name}</button>
+            <h1>데이터: {data}</h1>
+            <button
+                onClick={() => {
+                    setData(data + 1);
+                }}
+            >
+                더하기
+            </button>
         </>
     );
 }
