@@ -1,33 +1,19 @@
-import React from "react";
+import React from 'react';
+import Navigation from "./Components/Navigation";
+import ListPage from "./Pages/ListPage";
+import WritePage from "./Pages/WritePage";
+import {Route, Routes} from "react-router-dom";
 
+const App = () => {
+    return (
+        <div>
+            <Navigation/>
+            <Routes>
+            <Route path="/" eact={true} element={<ListPage/>}/>
+            <Route path="/write" eact={true} element={<WritePage/>}/>
+            </Routes>
+        </div>
+    );
+};
 
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-
-} from 'react-router-dom';
-
-import LandingPage from './Components/LandingPage/LandingPage';
-import HomePage from "./Components/Pages/HomePage";
-import Header from "./Components/header";
-export default function App(){
-  return(
-      <div>
-          <Header/>
-
-          <Routes>
-              <Route path="/" exact={true} element={<HomePage/>}/>
-              <Route  path="/Landing" exact={true} element={<LandingPage /> } />
-          </Routes>
-                  {/*<HomePage/>*/}
-      </div>
-      // <Router>
-      //
-      //   <Routes>
-      //     <Route  path="/" element={<LandingPage /> } />
-      //   </Routes>
-      //
-      // </Router>
-      )
-}
+export default App;
